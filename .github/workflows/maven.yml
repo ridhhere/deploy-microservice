@@ -32,6 +32,7 @@ jobs:
 
     - name: Building and Pushing User-service
       run: |
+            mvn clean
             docker build -t ridhdocker/user-service:0.0.1 user-service/
             docker push ridhdocker/user-service:0.0.1
       env:
