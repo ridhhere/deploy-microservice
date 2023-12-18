@@ -31,10 +31,7 @@ jobs:
         server-password: MAVEN_PASSWORD        
 
     - name: Building and Pushing User-service
-      run: |
-            mvn clean
-            docker build -t ridhdocker/user-service:0.0.1 user-service/
-            docker push ridhdocker/user-service:0.0.1
+      run: mvn package dockerfile:push --file user-service/pom.xml
       env:
           MAVEN_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
