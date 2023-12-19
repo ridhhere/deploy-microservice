@@ -32,6 +32,7 @@ jobs:
 
     - name: Building and Pushing User-service
       run: |
+          cd deploy-microservice
           cd user-service
           mvn clean
           docker build -t ridhdocker/user-service:0.0.1 -f user-service/Dockerfile .
