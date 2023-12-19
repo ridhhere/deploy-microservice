@@ -28,7 +28,7 @@ jobs:
         distribution: 'adopt'
         server-id: docker.io
         server-username: MAVEN_USERNAME
-        server-token: MAVEN_PASSWORD        
+        server-password: MAVEN_PASSWORD        
 
     - name: Building and Pushing User-service
       run: mvn package dockerfile:push --file user-service/pom.xml
@@ -80,7 +80,3 @@ jobs:
         ZONE_NAME: ${{ env.GKE_ZONE }}
       with:
         args: apply -f k8s/
-
-
-
-
