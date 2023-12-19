@@ -28,7 +28,7 @@ jobs:
         distribution: 'adopt'
         server-id: docker.io
         server-username: MAVEN_USERNAME
-        server-token: MAVEN_TOKEN        
+        server-password: MAVEN_PASSWORD        
 
     - name: Build and Push user-service
       run: |
@@ -39,13 +39,13 @@ jobs:
         docker push ridhdocker/user-registry:0.0.1
       env:
           MAVEN_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
+          MAVEN_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build and Push department-service
       run: mvn package dockerfile:push --file department-service/pom.xml
       env:
           MAVEN_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
+          MAVEN_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build and Push cloud-config-server
       run: mvn package dockerfile:push --file cloud-config-server/pom.xml
