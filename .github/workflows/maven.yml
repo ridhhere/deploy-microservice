@@ -34,6 +34,9 @@ jobs:
       run: |
         cd /home/runner/work/deploy-microservice/deploy-microservice/user-service
         mvn clean package
+        docker login
+        rm ~/.docker/config.json
+        docker login
         docker build -t ridhdocker/user-registry:0.0.1 .
         docker push ridhdocker/user-registry:0.0.1
       env:
