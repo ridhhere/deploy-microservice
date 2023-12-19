@@ -34,7 +34,7 @@ jobs:
       run: |
         cd /home/runner/work/deploy-microservice/deploy-microservice/user-service
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        mvn package dockerfile:push
+        mvn package dockerfile:push --file user-service/pom.xml
       env:
           MAVEN_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
