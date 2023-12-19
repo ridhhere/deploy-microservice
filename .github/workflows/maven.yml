@@ -32,9 +32,11 @@ jobs:
 
     - name: Build and Push user-service
       run: |
-        mvn package --file user-service/pom.xml
-        docker build -t ridhdocker/user-service:0.0.1 . --file user-service/Dockerfile
-        docker push ridhdocker/user-service:0.0.1
+        cd /home/runner/work/deploy-microservice/deploy-microservice/user-service
+        mvn clean package
+        docker login
+        docker build -t ridhdocker/service-registry:0.0.1 .
+        docker push ridhdocker/service-registry:0.0.1
       env:
           MAVEN_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
