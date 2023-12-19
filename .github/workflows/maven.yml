@@ -109,4 +109,4 @@ jobs:
         CLUSTER_NAME: ${{ env.GKE_CLUSTER }}
         ZONE_NAME: ${{ env.GKE_ZONE }}
       with:
-        args: apply -f k8s/   
+        args: apply -f /home/runner/work/deploy-microservice/deploy-microservice/k8s/
