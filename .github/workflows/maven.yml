@@ -11,7 +11,7 @@ on:
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: cluster-demo-1    # TODO: update to cluster name
-  GKE_ZONE: us-central1   # TODO: update to cluster zone
+  GKE_ZONE: us-central1-c   # TODO: update to cluster zone
 
 
 jobs:
@@ -33,8 +33,10 @@ jobs:
     - name: Build and Push user-service
       run: |
         cd /home/runner/work/deploy-microservice/deploy-microservice/user-service
+        mvn clean package
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        mvn package dockerfile:push --file user-service/pom.xml
+        docker build -t ridhdocker/user-service:0.0.1 .
+        docker push ridhdocker/user-service:0.0.1
       env:
           MAVEN_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -44,8 +46,8 @@ jobs:
           cd /home/runner/work/deploy-microservice/deploy-microservice/department-service
           mvn clean package
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -t ridhdocker/department-registry:0.0.1 .
-          docker push ridhdocker/department-registry:0.0.1
+          docker build -t ridhdocker/department-service:0.0.1 .
+          docker push ridhdocker/department-service:0.0.1
       env:
           MAVEN_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -53,6 +55,7 @@ jobs:
     - name: Build and Push cloud-config-server
       run: |
           cd /home/runner/work/deploy-microservice/deploy-microservice/cloud-config-server
+          mvn clean package
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker build -t ridhdocker/cloud-config-server:0.0.1 .
           docker push ridhdocker/cloud-config-server:0.0.1
