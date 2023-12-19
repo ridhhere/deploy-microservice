@@ -30,6 +30,18 @@ jobs:
         server-username: MAVEN_USERNAME
         server-password: MAVEN_PASSWORD        
 
+    - name: Set Docker Username and Password as Environment Variables
+      run: |
+          echo "Docker Username: ${{ secrets.DOCKER_USERNAME }}"
+          echo "Docker Password: ${{ secrets.DOCKER_PASSWORD }}"
+          echo "::set-env name=DOCKER_USERNAME::${{ secrets.DOCKER_USERNAME }}"
+          echo "::set-env name=DOCKER_PASSWORD::${{ secrets.DOCKER_PASSWORD }}"
+          
+    - name: Display Docker Username and Password (for debugging)
+      run: |
+          echo "Docker Username (Unmasked): $DOCKER_USERNAME"
+          echo "Docker Password (Unmasked): $DOCKER_PASSWORD"
+
     - name: Building and Pushing User-service
       run: |
           echo "Username: ${{ secrets.DOCKER_USERNAME }}"
