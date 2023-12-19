@@ -32,7 +32,6 @@ jobs:
 
     - name: Build and Push user-service
       run: |
-        # mvn package dockerfile:push --file user-service/pom.xml
         mvn package --file user-service/pom.xml
         docker build -t ridhdocker/user-service:0.0.1 . --file user-service/Dockerfile
         docker push ridhdocker/user-service:0.0.1
